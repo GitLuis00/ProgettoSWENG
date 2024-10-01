@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>View Story</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<div class="container">
+    <h1 th:text="${story.title}">Story Title</h1>
+    <div class="info-box">
+        Questa è la sezione per visualizzare gli scenari di una storia, per passare alla schermata dello scenario clicca sopra lo scenario.
+    </div>
+    <div class="story-info">
+        <div class="scenario-info">
+            <p th:text="${rootScenario.description}">Start Scenario Description</p>
+        </div>
+    </div>
+    <h2>Scenarios:</h2>
+    <table class="scenarios-table">
+        <thead>
+        <tr>
+            <th>Scenario Description</th>
+            <th>Choice Description</th>
+            <th>Next Scenario Description</th>
+            <th>Riddle</th>
+            <th>Collected Item</th>
+            <th>Is Final</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="scenario : ${scenarios}">
+            <td>
+                <a th:href="@{/scenarios/view/{id}(id=${rootScenario.id})}"><p th:text="${scenario.description}">Scenario Description</p></a>
+                <a th:href="@{/scenarios/edit/{id}(id=${scenario.id})}">Edit Scenario</a>
+            </td>
+            <td>
+                <table class="choices-table">
+                    <tbody>
+                    <tr th:each="choice : ${scenario.choices}">
+                        <td th:text="${choice.description}">Choice Description</td>
+                        <td th:if="${choice.requiredItem != null}" th:text="'Required Item: ' + ${choice.requiredItem.name}"></td>
+                        <td th:if="${choice.requiredItem == null}">N/A</td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+            <td>
+                <table class="choices-table">
+                    <tbody>
+                    <tr th:each="choice : ${scenario.choices}">
+                        <td th:text="${choice.nextScenario != null ? choice.nextScenario.description : 'N/A'}">Next Scenario Description</td>
+                        <td>
+                            <a th:if="${choice.nextScenario != null}" th:href="@{/scenarios/view/{id}(id=${choice.nextScenario.id})}">View Next Scenario</a>
+                            <span th:if="${choice.nextScenario == null}">N/A</span>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </td>
+            <td>
+                <div th:if="${scenario.riddle != null}">
+                    <p><strong>Question:</strong> <span th:text="${scenario.riddle.question}"></span></p>
+                    <p><strong>Answer:</strong> <span th:text="${scenario.riddle.answer}"></span></p>
+                </div>
+                <div th:if="${scenario.riddle == null}">
+                    <span>N/A</span>
+                </div>
+            </td>
+            <td>
+                <span th:if="${scenario.collectedItem != null}" th:text="${scenario.collectedItem.name}"></span>
+                <span th:if="${scenario.collectedItem == null}">N/A</span>
+            </td>
+            <td>
+                <span th:text="${scenario.isFinal() ? 'Yes' : 'No'}"></span>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+
+<div class="top-left-buttons">
+    <a href="javascript:goBack()">
+        <i class="fas fa-arrow-left"></i> Go back
+    </a>
+</div>
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
+</body>
+</html>

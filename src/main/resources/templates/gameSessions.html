@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Game Sessions</title>
+    <script>
+        function loadGameSessions() {
+            fetch('/gamesession/api/user/1')  // Sostituisci 1 con l'ID dell'utente corrente
+                .then(response => response.json())
+                .then(data => {
+                    let sessionsDiv = document.getElementById('sessions');
+                    sessionsDiv.innerHTML = '';
+                    data.forEach(session => {
+                        let sessionDiv = document.createElement('div');
+                        sessionDiv.innerHTML = `
+                            <span>Session ID: ${session.id}</span>
+                            <button onclick="playSession(${session.id})">Play</button>
+                        `;
+                        sessionsDiv.appendChild(sessionDiv);
+                    });
+                });
+        }
+
+        function playSession(sessionId) {
+            window.location.href = `/gamesession/play?sessionId=${sessionId}`;
+        }
+
+        document.addEventListener('DOMContentLoaded', (event) => {
+            loadGameSessions();
+        });
+    </script>
+</head>
+<body>
+<h1>Game Sessions</h1>
+<div id="sessions"></div>
+
+<div class="top-left-buttons">
+    <a href="javascript:goBack()">
+        <i class="fas fa-arrow-left"></i> Go back
+    </a>
+</div>
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
+</body>
+</html>

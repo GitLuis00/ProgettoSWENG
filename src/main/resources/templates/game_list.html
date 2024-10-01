@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>your story list</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+<div>
+  <h2>Your Story List</h2>
+  <ul>
+    <li th:each="story : ${stories}">
+      <p th:text="${story.title}"></p>
+      <form th:if="${ongoingSessions.containsKey(story.id)}" th:action="@{/gamesession/play}" method="get" style="display:inline;">
+        <input type="hidden" name="sessionId" th:value="${ongoingSessions.get(story.id).id}" />
+        <button type="submit">Resume Game</button>
+      </form>
+      <form th:if="${ongoingSessions.containsKey(story.id)}" th:action="@{/gamesession/endAndStartNew}" method="post" style="display:inline;">
+        <input type="hidden" name="currentSessionId" th:value="${ongoingSessions.get(story.id).id}" />
+        <input type="hidden" name="storyId" th:value="${story.id}" />
+        <button type="submit">Restart Game</button>
+      </form>
+      <form th:if="${!ongoingSessions.containsKey(story.id)}" th:action="@{/gamesession/start}" method="post" style="display:inline;">
+        <input type="hidden" name="storyId" th:value="${story.id}" />
+        <button type="submit">Start new game</button>
+      </form>
+    </li>
+  </ul>
+</div>
+
+<div class="top-left-buttons">
+  <a href="javascript:goBack()">
+    <i class="fas fa-arrow-left"></i> Go back
+  </a>
+</div>
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
+</body>
+</html>

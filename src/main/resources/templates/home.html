@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+<head>
+    <meta charset="UTF-8">
+    <title>Home</title>
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body */
+        body {
+            background-color: rgb(66, 179, 255); /* Colore di sfondo blu chiaro */
+            color: #fff;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 20px;
+        }
+
+        /* Header */
+        .header {
+            background-color: #005580;
+        }
+        h1, h2, h3 {
+            text-align: center;
+            margin: 20px 0;
+            height: 80px;
+        }
+
+        h1.title {
+            color: rgb(145, 211, 255); /* Colore per il titolo */
+        }
+
+        /* Buttons */
+        .button {
+            background-color: #26ffc9;
+            color: #000;
+            border: 2px solid #fff;
+            padding: 15px;
+            font-size: 1em;
+            cursor: pointer;
+            display: inline-block;
+            margin: 10px;
+            text-align: center;
+            width: 200px;
+        }
+
+        .button:hover {
+            background-color: #ff0;
+            color: #000;
+        }
+
+        /* Top right buttons */
+        .top-right-buttons {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+
+        /* Center buttons */
+        .center-buttons {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 80vh;
+            flex-direction: column;
+        }
+
+        .center-buttons p {
+            margin-bottom: 30px; /* Distanziamento dal menu */
+            text-align: center;
+        }
+
+        .center-buttons a, .center-buttons form {
+            margin: 10px;
+        }
+
+        .menu {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px;
+            border: 3px solid #fff;
+            border-radius: 15px;
+            background-color: rgba(0, 85, 128, 0.8); /* Colore di sfondo del menu con trasparenza */
+        }
+
+        .menu button {
+            margin: 10px;
+        }
+
+        /* Arcade Font */
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+    </style>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+
+<div class="top-right-buttons">
+    <form th:action="@{/logout}" method="post" style="display:inline;">
+        <button type="submit" class="button">Logout</button>
+    </form>
+</div>
+
+<div class="header">
+    <h1 class="title">Welcome to SWENG</h1>
+</div>
+
+<div class="center-buttons">
+    <p>sweng è un'applicazione che permette lo sviluppo e il gioco di storie interattive</p>
+    <div class="menu">
+        <form th:action="@{/stories}" method="get">
+            <button type="submit" class="button">Write story</button>
+        </form>
+        <div th:if="${isPremium}">
+            <form th:action="@{/gamesession/list}" method="get">
+                <button type="submit" class="button">Play Story</button>
+            </form>
+        </div>
+        <div th:if="${!isPremium}">
+            <form th:action="@{/premium}" method="get">
+                <button type="submit" class="button">become premium user</button>
+            </form>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

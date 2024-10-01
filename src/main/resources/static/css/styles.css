@@ -1,0 +1,204 @@
+/* Reset CSS */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Body */
+body {
+    background-color: rgb(66, 179, 255); /* Colore di sfondo blu chiaro */
+                color: #fff;
+                font-family: 'Press Start 2P', cursive;
+                font-size: 20px;
+}
+
+/* Header */
+.header {
+    background-color: #005580;
+}
+
+h1, h2, h3 {
+    text-align: center;
+    margin: 20px 0;
+    height: 80px;
+}
+
+h1.title {
+    color: rgb(145, 211, 255); /* Colore per il titolo */
+}
+
+/* Tables */
+table {
+    width: 80%;
+    margin: 20px auto;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 2px solid #fff;
+}
+
+th, td {
+    padding: 10px;
+    text-align: center;
+}
+
+thead {
+    background-color: #444;
+}
+
+tbody tr:nth-child(even) {
+    background-color: #333;
+}
+
+tbody tr:nth-child(odd) {
+    background-color: #555;
+}
+
+/* Links */
+a {
+    color: #0ff;
+    text-decoration: none;
+}
+
+a:hover {
+    color: #ff0;
+}
+
+/* Buttons */
+.button, button {
+    background-color: #26ffc9;
+    color: #000;
+    border: 2px solid #fff;
+    padding: 15px;
+    font-size: 1em;
+    cursor: pointer;
+    display: inline-block;
+    margin: 10px;
+    text-align: center;
+    width: 200px;
+}
+
+.button:hover, button:hover {
+    background-color: #ff0;
+    color: #000;
+}
+
+/* Top right buttons */
+.top-right-buttons {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+}
+
+/* Top left buttons */
+.top-left-buttons {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    display: flex;
+    align-items: center;
+}
+
+.top-left-buttons a {
+    display: flex;
+    align-items: center;
+    color: #fff;
+    text-decoration: none;
+}
+
+.top-left-buttons img {
+    margin-right: 5px;
+    width: 24px;
+    height: 24px;
+}
+
+/* Center buttons */
+.center-buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    flex-direction: column;
+}
+
+.center-buttons p {
+    margin-bottom: 30px; /* Distanziamento dal menu */
+    text-align: center;
+}
+
+.center-buttons a, .center-buttons form {
+    margin: 10px;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 20px;
+    border: 3px solid #fff;
+    border-radius: 15px;
+    background-color: rgba(0, 85, 128, 0.8); /* Colore di sfondo del menu con trasparenza */
+}
+
+.menu button {
+    margin: 10px;
+}
+
+/* Forms */
+form {
+    width: 80%;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #111;
+    border: 2px solid #fff;
+}
+
+form label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+form input, form select {
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0 20px;
+    background-color: #222;
+    border: 2px solid #fff;
+    color: #fff;
+    font-family: 'Press Start 2P', cursive;
+}
+
+form input[type="submit"] {
+    width: auto;
+    background-color: #0ff;
+    color: #000;
+    border: 2px solid #fff;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+form input[type="submit"]:hover {
+    background-color: #ff0;
+    color: #000;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.add-new-story {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+}
+
+.add-new-story i {
+    margin-right: 5px;
+}
+
+/* Arcade Font */
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
