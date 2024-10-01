@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/css/bootstrap.min.css"
+          integrity="sha384-F3w7mX95PdgyTmZZMECAngseQB83DfGTowi0iMjiWaeVhAn4FJkqJByhZMI3AhiU"
+          crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.1/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-KyZXEAg3QhqLMpG8r+Knujsl5/5I5wI5gFf5wHddh3dH4tM/4irT7JjW8D0s8xjIf"
+            crossorigin="anonymous"></script>
+    <title>View Stories</title>
+</head>
+<body>
+<div class="container">
+    <h1 class="text-center">Stories</h1>
+
+    <!-- Search Form -->
+    <div class="mb-3">
+        <form th:action="@{/stories/viewStories}" method="get">
+            <div class="input-group mb-3">
+                <input type="text" name="username" class="form-control" placeholder="Search by username">
+                <button class="btn btn-primary" type="submit">Search</button>
+            </div>
+        </form>
+    </div>
+
+    <!-- Stories Table -->
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Story Title</th>
+            <th>Start Scenario Description</th>
+            <th>Author</th>
+            <th>Creation Date</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="story : ${stories}">
+            <td th:text="${story.title}">Story Title</td>
+            <td th:text="${story.startScenario.description}">Start Scenario Description</td>
+            <td th:text="${story.author}">Author</td>
+            <td th:text="${story.creationDate}">Creation Date</td>
+        </tr>
+        <tr th:if="${#lists.isEmpty(stories)}">
+            <td colspan="4" class="text-center">No stories found with the specified filters.</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <!-- Back to Home Button -->
+    <div class="text-center">
+        <a class="btn btn-primary" th:href="@{/}">Back to Home</a>
+    </div>
+
+    <div class="top-left-buttons">
+        <a href="javascript:goBack()">
+            <i class="fas fa-arrow-left"></i> Go back
+        </a>
+    </div>
+
+    <script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
+
+</div>
+</body>
+</html>

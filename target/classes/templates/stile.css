@@ -1,0 +1,131 @@
+    <style>
+
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+}
+
+h1, h2 {
+    text-align: center;
+    color: #333;
+}
+
+.story-info {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.scenario-info, .inventory-info {
+    flex: 1;
+    margin-right: 10px;
+}
+
+.inventory-info h3 {
+    margin-top: 0;
+}
+
+.inventory-info ul {
+    list-style-type: none;
+    padding: 0;
+}
+
+.inventory-info ul li {
+    background-color: #f9f9f9;
+    margin-bottom: 5px;
+    padding: 10px;
+    border-radius: 4px;
+}
+
+.scenarios-table, .choices-table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.scenarios-table th, .scenarios-table td, .choices-table th, .choices-table td {
+    border: 1px solid #ddd;
+    padding: 8px;
+}
+
+.scenarios-table th, .choices-table th {
+    background-color: #f2f2f2;
+    text-align: left;
+}
+
+.tree ul {
+    list-style-type: none;
+    padding-left: 20px;
+    position: relative;
+}
+
+.tree ul ul {
+    position: relative;
+}
+
+.tree ul:before {
+    content: '';
+    display: block;
+    width: 0;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: -10px;
+    border-left: 1px solid #ccc;
+}
+
+.tree li {
+    margin: 0;
+    padding: 10px 5px;
+    position: relative;
+}
+
+.tree li:before {
+    content: '';
+    display: block;
+    width: 10px;
+    height: 0;
+    border-top: 1px solid #ccc;
+    position: absolute;
+    top: 15px;
+    left: -10px;
+}
+
+.tree li span {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+}
+
+.info-box {
+            border: 2px solid #fff;
+            border-radius: 10px;
+            padding: 20px;
+            background-color: rgba(0, 85, 128, 0.8);
+            margin: 20px 0;
+            text-align: center;
+        }
+
+a {
+    color: #007bff;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+    </style>

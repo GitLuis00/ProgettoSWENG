@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Story Summary</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+
+    .summary-container {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      padding: 20px;
+    }
+
+    .scenarios-box {
+      border: 1px solid #444;
+      padding: 20px;
+      background-color: #333;
+      color: white;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      border-radius: 10px;
+      max-width: 600px;
+      width: 100%;
+    }
+
+    .scenarios-box h2 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .scenarios-box ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    .scenarios-box li {
+      margin-bottom: 10px;
+      padding: 10px;
+      background-color: #444;
+      border-radius: 5px;
+    }
+
+    .top-left-buttons {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+    }
+
+    .top-left-buttons a {
+      color: white;
+      text-decoration: none;
+      font-size: 1.2em;
+    }
+
+    .top-left-buttons a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+<div class="top-left-buttons">
+  <a href="javascript:goBack()">
+    <i class="fas fa-arrow-left"></i> Go back
+  </a>
+
+</div>
+
+<div class="summary-container">
+  <div class="scenarios-box">
+    <h2>Story Summary</h2>
+    <ul>
+      <li th:each="scenario : ${visitedScenarios}">
+        <p th:text="${scenario.description}"></p>
+      </li>
+    </ul>
+    <div>
+      <a th:href="@{/gamesession/list}" class="add-new-story">back to story list</a>
+    </div>
+  </div>
+
+</div>
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
+
+
+</body>
+</html>

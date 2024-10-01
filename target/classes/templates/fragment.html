@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Fragments</title>
+</head>
+<body>
+<div th:fragment="content">
+  <!-- Contenuto specifico della pagina sarà inserito qui -->
+</div>
+
+<div th:fragment="alert">
+  <div th:if="${message != null}">
+    <p th:text="${message}" style="color: green;"></p>
+  </div>
+</div>
+</body>
+</html>

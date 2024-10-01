@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Success</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+</head>
+<body>
+<div class="container">
+    <h2>Registration Success</h2>
+    <p>Registration completed successfully!</p>
+</div>
+<div class="text-center">
+    <a class="btn btn-primary" th:href="@{/}">Back to Home</a>
+</div>
+
+<div class="top-left-buttons">
+    <a href="javascript:goBack()">
+        <img src="path/to/your/back-icon.png" alt="Go back"> Go back
+    </a>
+</div>
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
+
+</body>
+</html>

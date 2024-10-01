@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Game Screen</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+    <style>
+        /* Reset CSS */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* Body */
+        body {
+            background-color: rgb(66, 179, 255); /* Colore di sfondo blu chiaro */
+            color: #fff;
+            font-family: 'Press Start 2P', cursive;
+            font-size: 20px;
+        }
+
+        h2, h3 {
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        h2.title {
+            color: rgb(145, 211, 255); /* Colore per il titolo */
+        }
+
+        /* Buttons */
+        .button {
+            background-color: #26ffc9;
+            color: #000;
+            border: 2px solid #fff;
+            padding: 5px 10px; /* Rimpicciolisci i bottoni */
+            font-size: 0.8em;
+            cursor: pointer;
+            display: inline-block;
+            margin: 5px 0; /* Spazio tra i bottoni */
+            text-align: center;
+            transition: background-color 0.3s ease;
+        }
+
+        .button:hover {
+            background-color: #ff0;
+            color: #000;
+        }
+
+        /* Top left buttons */
+        .top-left-buttons {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px; /* Aumenta il padding */
+        }
+
+        .scenario, .collectible, .choices, .final-scenario {
+            margin-bottom: 40px; /* Aumenta il margine tra i riquadri */
+            padding: 20px;
+            border: 3px solid #fff;
+            border-radius: 15px;
+            background-color: rgba(0, 85, 128, 0.8); /* Colore di sfondo del riquadro con trasparenza */
+            width: 100%;
+            max-width: 800px;
+        }
+
+        .inventory {
+            margin-left: 20px;
+            padding: 20px;
+            border: 3px solid #fff;
+            border-radius: 15px;
+            background-color: rgba(0, 85, 128, 0.8); /* Colore di sfondo del riquadro con trasparenza */
+            flex: 1;
+        }
+
+        .choices-container {
+            display: flex;
+            flex-wrap: wrap; /* Impedisce la sovrapposizione degli elementi */
+            justify-content: space-between; /* Distribuisce lo spazio tra gli elementi */
+        }
+
+        .choices, .inventory {
+            flex: 1;
+            margin-bottom: 20px; /* Aggiungi margine inferiore per evitare sovrapposizioni */
+        }
+
+        .inventory ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .inventory li {
+            background-color: #444;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+        }
+
+        button, a {
+            background-color: #26ffc9;
+            color: #000;
+            padding: 10px 20px;
+            border: 2px solid #fff;
+            border-radius: 5px;
+            text-decoration: none;
+            display: inline-block;
+            margin: 5px 0;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover, a:hover {
+            background-color: #ff0;
+            color: #000;
+        }
+
+        /* Arcade Font */
+        @import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap');
+    </style>
+</head>
+<body>
+<div class="top-left-buttons">
+    <form th:action="@{/gamesession/saveAndExit}" method="post">
+        <input type="hidden" name="sessionId" th:value="${sessionId}" />
+        <button type="submit" class="button">Save and Exit</button>
+    </form>
+    <form th:action="@{/gamesession/endSession}" method="post">
+        <input type="hidden" name="sessionId" th:value="${sessionId}" />
+        <button type="submit" class="button">End Game</button>
+    </form>
+</div>
+
+<div class="container">
+    <div class="scenario">
+        <h2>Current Scenario</h2>
+        <p th:text="${scenario.description}"></p>
+        <div th:if="${errorMessage != null}" style="color: red;">
+            <p th:text="${errorMessage}"></p>
+        </div>
+    </div>
+
+    <div th:if="${!isFinalScenario}" class="choices-container">
+        <div class="choices">
+            <h3>Choices</h3>
+            <form th:action="@{/gamesession/choose}" method="post">
+                <input type="hidden" name="sessionId" th:value="${sessionId}" />
+                <div th:each="choice : ${scenario.choices}">
+                    <p th:text="${choice.description}"></p>
+                    <p th:if="${choice.requiredItem != null}" th:text="'Required item: ' + ${choice.requiredItem.name}"></p>
+                    <button type="submit" name="choiceId" th:value="${choice.id}" th:text="'Choose ' + ${choice.description}" class="button"></button>
+                </div>
+            </form>
+        </div>
+
+        <div class="inventory">
+            <h3>Inventory</h3>
+            <p th:text="'Inventory Name: ' + ${inventory.name}"></p>
+            <p th:text="'Capacity: ' + ${inventory.capacity}"></p>
+            <ul>
+                <li th:each="item : ${inventory.items}" th:text="${item.name}"></li>
+            </ul>
+        </div>
+
+        <div th:if="${scenario.collectedItem != null}">
+            <div th:if="${scenario.collectedItem.id != 1}" class="collectible">
+                <h3>Collectible Item</h3>
+                <p th:text="'You found an item: ' + ${scenario.collectedItem.name}"></p>
+                <form th:action="@{/gamesession/collectItem}" method="post">
+                    <input type="hidden" name="sessionId" th:value="${sessionId}" />
+                    <button type="submit" class="button">Collect Item</button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div th:if="${isFinalScenario}" class="final-scenario">
+        <h3>End of the Story</h3>
+        <p>Congratulations! You have completed the story.</p>
+        <form th:action="@{/gamesession/summary}" method="get">
+            <input type="hidden" name="sessionId" th:value="${sessionId}" />
+            <button type="submit" class="button">Go to Story Summary</button>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

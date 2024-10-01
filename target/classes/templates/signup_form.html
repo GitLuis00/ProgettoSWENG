@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration Form</title>
+    <link rel="stylesheet" th:href="@{/css/bootstrap.min.css}">
+    <style>
+        body {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f8f9fa; /* Colore di sfondo chiaro */
+    margin: 0;
+}
+.container {
+    max-width: 400px;
+    padding: 20px;
+    /* Rimosso il background-color e il box-shadow */
+}
+        .form-group {
+            margin-bottom: 15px;
+        }
+        .form-control {
+            height: 45px;
+            font-size: 16px;
+        }
+        .btn-primary {
+            width: 100%;
+            height: 50px;
+            font-size: 18px;
+            background-color: #007bff;
+            border-color: #007bff;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+        .btn-primary:hover {
+            background-color: #0056b3;
+            border-color: #0056b3;
+        }
+        h2 {
+            margin-bottom: 20px;
+            font-size: 24px;
+            font-weight: 400;
+            text-align: center;
+        }
+        #premiumFields .form-group {
+            margin-bottom: 10px;
+        }
+        .alert {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h2>Please sign up</h2>
+    <form th:action="@{/registration}" method="post">
+        <div class="form-group">
+            <label for="username"></label>
+            <input type="text" class="form-control" id="username" name="username" placeholder="Enter username" required>
+        </div>
+        <div class="form-group">
+            <label for="email"></label>
+            <input type="email" class="form-control" id="email" name="email" placeholder="Enter email" required>
+        </div>
+        <div class="form-group">
+            <label for="password"></label>
+            <input type="password" class="form-control" id="password" name="password" placeholder="Enter password" required>
+        </div>
+        <div class="form-group">
+            <label for="firstName"></label>
+            <input type="text" class="form-control" id="firstName" name="firstName" placeholder="Enter first name" required>
+        </div>
+        <div class="form-group">
+            <label for="userType">User Type</label>
+            <select class="form-control" id="userType" name="userType" required>
+                <option value="standard">Standard</option>
+                <option value="premium">Premium</option>
+            </select>
+        </div>
+        <div id="premiumFields" style="display: none;">
+            <div class="form-group">
+                <label for="cardHolder"></label>
+                <input type="text" class="form-control" id="cardHolder" name="cardHolder" placeholder="Enter card holder">
+            </div>
+            <div class="form-group">
+                <label for="cardNumber"></label>
+                <input type="text" class="form-control" id="cardNumber" name="cardNumber" placeholder="Enter card number" maxlength="16">
+            </div>
+            <div class="form-group">
+                <label for="expireDate"></label>
+                <input type="text" class="form-control" id="expireDate" name="expireDate" placeholder="Enter expire date">
+            </div>
+            <div class="form-group">
+                <label for="cvv"></label>
+                <input type="text" class="form-control" id="cvv" name="cvv" placeholder="Enter CVV" maxlength="3">
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Register</button>
+    </form>
+    <div th:if="${error}">
+        <p class="alert alert-danger" th:text="${error}"></p>
+    </div>
+    <div th:if="${success}">
+        <p class="alert alert-success" th:text="${success}"></p>
+    </div>
+</div>
+
+<script>
+    document.getElementById('userType').addEventListener('change', function() {
+        var premiumFields = document.getElementById('premiumFields');
+        if (this.value === 'premium') {
+            premiumFields.style.display = 'block';
+        } else {
+            premiumFields.style.display = 'none';
+        }
+    });
+</script>
+
+<div class="top-left-buttons">
+    <a href="javascript:goBack()">
+        <i class="fas fa-arrow-left"></i> Go back
+    </a>
+</div>
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
+</body>
+</html>

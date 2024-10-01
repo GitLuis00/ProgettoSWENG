@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Game Session</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<h1 th:text="${story.title}">Story Title</h1>
+<h2 th:text="${currentScenario.description}">Current Scenario Description</h2>
+<div>
+  <h3>Choices:</h3>
+  <ul>
+    <li th:each="choice : ${currentScenario.choices}">
+      <a th:href="@{/gamesessions/choose/{choiceId}(choiceId=${choice.id})}" th:text="${choice.description}">Choice Description</a>
+    </li>
+  </ul>
+</div>
+<div>
+  <h3>Inventory:</h3>
+  <ul>
+    <li th:each="item : ${inventory.items}" th:text="${item.name}">Item Name</li>
+  </ul>
+</div>
+<a th:href="@{/gamesessions/save}">Save Game</a>
+<a th:href="@{/stories}">Back to Stories</a>
+</body>
+</html>

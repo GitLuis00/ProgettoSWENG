@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>View Scenario</title>
+  <link rel="stylesheet" th:href="@{/css/styles.css}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  <style>
+  <style>
+        /* Menu Styles */
+        .menu {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .menu a {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #0ff;
+            color: #000;
+            text-decoration: none;
+            border: 2px solid #fff;
+            border-radius: 5px;
+        }
+
+        .menu a:hover {
+            background-color: #ff0;
+            color: #000;
+        }
+
+        .choices {
+            margin-bottom: 20px;
+        }
+
+        .choices ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .choices li {
+            background-color: #333;
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 4px;
+        }
+
+        .choices a {
+            display: inline-block;
+            margin-left: 10px;
+            color: #0ff;
+            text-decoration: none;
+        }
+
+        .choices a:hover {
+            text-decoration: underline;
+            color: #ff0;
+        }
+
+        /* Tree View Styles */
+        .tree-view {
+            margin: 20px auto;
+            max-width: 800px;
+        }
+
+        .tree-view ul {
+            list-style-type: none;
+            padding: 0;
+        }
+
+        .tree-view li {
+            margin: 5px 0;
+            padding: 5px 10px;
+            border: 1px solid #fff;
+            border-radius: 4px;
+            background-color: #444;
+        }
+
+        .tree-view li ul {
+            margin-left: 20px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+  <h1 th:text="${scenario.description}">Scenario Description</h1>
+
+  <div class="info-box">
+    Questa è la sezione dedicata allo scenario. Qua puoi vedere le scelte dello scenario e passare al form per creare nuove scete e scenari associati. Puoi anche creare un indovinello che sarà mostrato prima di accedere a quello scenario.
+  </div>
+  <div class="menu">
+    <a th:href="@{/scenarios/{id}/addChoice(id=${scenario.id})}">Add New Choice</a>
+    <a th:href="@{/scenarios/riddle/new/{id}(id=${scenario.id})}">Add New Riddle</a>
+  </div>
+  <div class="choices">
+    <h2>Choices:</h2>
+    <ul>
+      <li th:each="choice : ${scenario.choices}">
+        <span th:text="${choice.description}">Choice Description</span>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<div class="top-left-buttons">
+  <a href="javascript:goBack()">
+    <i class="fas fa-arrow-left"></i> Go back
+  </a>
+</div>
+
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
+</body>
+</html>

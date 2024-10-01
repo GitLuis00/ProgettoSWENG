@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Riddle</title>
+    <link rel="stylesheet" th:href="@{/css/styles.css}">
+</head>
+<body>
+<div>
+    <h2>Riddle</h2>
+    <p th:text="${riddle.question}"></p>
+    <form th:action="@{/gamesession/answerRiddle}" method="post">
+        <input type="hidden" name="sessionId" th:value="${sessionId}" />
+        <input type="hidden" name="riddleId" th:value="${riddle.id}" />
+        <input type="text" name="answer" placeholder="La tua risposta" required />
+        <button type="submit">answer</button>
+    </form>
+    <p th:if="${errorMessage}" th:text="${errorMessage}" style="color: red;"></p>
+</div>
+
+</body>
+</html>
